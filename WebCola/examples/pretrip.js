@@ -73,7 +73,6 @@ var tetrisbug;
             });
             var powerGraph;
             var doLayout = function (response) {
-
                 var vs = response.nodes.filter(function (v) { return v.label; });
                 vs.forEach(function (v) {
                     var index = Number(v.label) - 1;

@@ -104,7 +104,7 @@ export class Block {
         });
         return dfdv / v.scale;
     }
-    
+
     private populateSplitBlock(v: Variable, prev: Variable): void {
         v.visitNeighbours(prev, (c, next) => {
             next.offset = v.offset + (next === c.right ? c.gap : -c.gap);
@@ -123,7 +123,7 @@ export class Block {
 
     // calculate lagrangian multipliers on constraints and
     // find the active constraint in this block with the smallest lagrangian.
-    // if the lagrangian is negative, then the constraint is a split candidate.  
+    // if the lagrangian is negative, then the constraint is a split candidate.
     findMinLM(): Constraint {
         var m: Constraint = null;
         this.compute_lm(this.vars[0], null, c=> {
@@ -152,7 +152,7 @@ export class Block {
         });
         return endFound;
     }
-    
+
     // Search active constraint tree from u to see if there is a directed path to v.
     // Returns true if path is found.
     isActiveDirectedPathBetween(u: Variable, v: Variable) : boolean {
@@ -241,7 +241,7 @@ export class Blocks {
 
     cost(): number {
         var sum = 0, i = this.list.length;
-        while (i--) sum += this.list[i].cost();
+        while (i--) sum += this.list[i] ? this.list[i].cost() : 0;
         return sum;
     }
 
@@ -265,7 +265,7 @@ DEBUG */
         var last = this.list.length - 1;
         var swapBlock = this.list[last];
         this.list.length = last;
-        if (b !== swapBlock) {
+        if (swapBlock && b !== swapBlock) { //HACK simontegg
             this.list[b.blockInd] = swapBlock;
             swapBlock.blockInd = b.blockInd;
 /* DEBUG
@@ -298,13 +298,13 @@ DEBUG */
     forEach(f: (b: Block, i: number) => void ) {
         this.list.forEach(f);
     }
-    
+
     // useful, for example, after variable desired positions change.
     updateBlockPositions(): void {
         this.list.forEach(b=> b.updateWeightedPosition());
     }
 
-    // split each block across its constraint with the minimum lagrangian 
+    // split each block across its constraint with the minimum lagrangian
     split(inactive: Constraint[]): void {
         this.updateBlockPositions();
         this.list.forEach(b=> {
@@ -321,7 +321,7 @@ DEBUG */
             }
         });
     }
-    
+
 /* DEBUG
     // checks b is in the block, and does a sanity check over list index integrity
     contains(b: Block): boolean {

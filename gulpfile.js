@@ -1,4 +1,4 @@
-var gulp 				= require('gulp');
+  var gulp 				= require('gulp');
 var ts  				= require('gulp-typescript');
 var browserify 	= require('browserify');
 var source 			= require('vinyl-source-stream');
@@ -123,10 +123,3 @@ gulp.task('copy', function () {
     .src('./WebCola/src/*.js')
     .pipe(gulp.dest('./lib'))
 });
-
-
-
-
-
-
-

@@ -101,7 +101,7 @@ export class Rectangle {
         }
         return intersections;
     }
-    
+
     /**
      * return any intersection points between a line extending from the centre of this rectangle to the given point,
      *  and the sides of this rectangle
@@ -316,7 +316,7 @@ function generateConstraints(rs: Rectangle[], vars: Variable[],
             visitNeighbours("next", "prev", (u, v) => makeConstraint(v, u));
         }
     }
-    console.assert(scanline.size === 0);
+    // console.assert(scanline.size === 0);
     return cs;
 }
 
@@ -525,10 +525,10 @@ export class Projection {
         ];
     }
 
-    private project(x0: number[], y0: number[], start: number[], desired: number[], 
+    private project(x0: number[], y0: number[], start: number[], desired: number[],
         getDesired: (v: GraphNode) => number,
-        cs: Constraint[], 
-        generateConstraints: (g: Group) => Constraint[], 
+        cs: Constraint[],
+        generateConstraints: (g: Group) => Constraint[],
         updateNodeBounds: (v: GraphNode) => any,
         updateGroupBounds: (g: Group) => any)
     {
